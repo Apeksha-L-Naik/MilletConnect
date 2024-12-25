@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import axios from 'axios';
 
 const Upload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isSearchMode, setIsSearchMode] = useState(false);
+  const [prediction, setPrediction] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Get the query parameter from the URL to determine the mode
   const location = useLocation();
@@ -24,15 +27,32 @@ const Upload = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      setSelectedImage(file); // Save the file directly, not URL.createObjectURL(file)
     }
   };
 
   // Handle image upload
-  const handleUploadClick = () => {
+  const handleUploadClick = async () => {
     if (selectedImage) {
-      alert("Image uploaded successfully!");
-      // Replace this with actual upload logic (e.g., API call)
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("image", selectedImage);  // Send the actual file object
+
+      try {
+        const response = await axios.post("http://localhost:5000/predict", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        // Handle response from Flask backend
+        setPrediction(response.data);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        alert("Error uploading image.");
+      } finally {
+        setLoading(false);
+      }
     } else {
       alert("Please select an image to upload.");
     }
@@ -80,7 +100,7 @@ const Upload = () => {
 
           {/* Display selected image */}
           {selectedImage && (
-            <img src={selectedImage} alt="Selected" className="w-80 h-80 object-cover mb-4" />
+            <img src={URL.createObjectURL(selectedImage)} alt="Selected" className="w-80 h-80 object-cover mb-4" />
           )}
 
           {/* Upload button */}
@@ -88,8 +108,29 @@ const Upload = () => {
             onClick={handleUploadClick}
             className="bg-[#a16207] text-white rounded-full px-6 py-2 font-bold text-sm hover:bg-[#d98f0c] transition-colors"
           >
-            Upload Image
+            {loading ? "Uploading..." : "Upload Image"}
           </button>
+
+          {/* Display prediction result */}
+          {prediction && !loading && (
+            <div className="mt-6">
+              <h2 className="text-2xl font-semibold text-[#a16207]">{prediction.millet_type}</h2>
+              <p><strong>Description:</strong> {prediction.description}</p>
+              <p><strong>Health Benefits:</strong> {prediction.health_benefits}</p>
+              <p><strong>Protein:</strong> {prediction.Protein} g per 100g</p>
+              <p><strong>Fats:</strong> {prediction.Fats} g per 100g</p>
+              <p><strong>Dietary Fiber:</strong> {prediction.Dietary_Fiber} g per 100g</p>
+              <p><strong>Minerals:</strong> {prediction.Minerals}</p>
+              <p><strong>Carbohydrates:</strong> {prediction.Carbohydrates} g per 100g</p>
+
+              {prediction.image && (
+                <div>
+                  <h3>Millet Image:</h3>
+                  <img src={`data:image/png;base64,${prediction.image}`} alt="Millet" className="w-80 h-80 object-cover" />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -97,3 +138,5 @@ const Upload = () => {
 };
 
 export default Upload;
+
+
