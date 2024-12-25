@@ -17,11 +17,11 @@ const LogMeal = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/calculate', { mealDescription });
+      const response = await axios.post('http://localhost:4000/calculate', { mealDescription });
       setCalculatedData(response.data);
 
       // Fetch the daily calorie limit based on age and gender
-      const calorieResponse = await axios.post('http://localhost:5000/calorie-limit', { age, gender });
+      const calorieResponse = await axios.post('http://localhost:4000/calorie-limit', { age, gender });
       setDailyCalorieLimit(calorieResponse.data.dailyCalorieLimit);
     } catch (error) {
       console.error('Error calculating nutrition or calorie limit:', error);
@@ -33,7 +33,7 @@ const LogMeal = () => {
     if (!calculatedData) return alert('Please calculate the meal first.');
   
     try {
-      const response = await axios.post('http://localhost:5000/meals', {
+      const response = await axios.post('http://localhost:4000/meals', {
         meal: mealDescription,
         calories: calculatedData.calories,
         protein: calculatedData.nutrients.protein,
@@ -58,7 +58,7 @@ const LogMeal = () => {
   
   const fetchReport = async (mealId, age, gender) => {
     try {
-      const response = await axios.get(`http://localhost:5000/report/${mealId}`, {
+      const response = await axios.get(`http://localhost:4000/report/${mealId}`, {
         params: {
           age: age,
           gender: gender,
