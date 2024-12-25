@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Card from "./Components/Card";  // Import the Card component
+import Card from "./Components/Card";  
 import ImageScan from "./Components/ImageScan";
 import Upload from "./Components/Upload";
-import Search from "./Components/Search";  // Import the ImageScan component
+import Search from "./Components/Search"; 
+import Disease from "./Components/Disease";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
          {/* Image scan page */}
          <Route path="/upload" element={<Upload />} />
          <Route path="/Search" element={<Search />}/>
+         <Route path="/disease" element={<Disease />}/>
       </Routes>
     </Router>
   );

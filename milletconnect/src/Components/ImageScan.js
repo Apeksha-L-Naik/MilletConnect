@@ -29,7 +29,7 @@ const ImageScan = () => {
           imgSrc="https://cdn-icons-png.flaticon.com/512/151/151773.png"
           btnText="Explore Now"
           onClick={handleSearchClick}
-        />
+    />
 
         {/* Upload Method */}
         <OptionCard

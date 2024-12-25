@@ -7,6 +7,10 @@ const Card = () => {
   const handleGetStartedClick = () => {
     navigate("/imagescan");  // Navigate to the /imagescan route
   };
+  const handleLearnMoreClick = () => {
+    navigate("/disease"); // Navigate to the /disease route
+  };
+  
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-8 h-screen py-12 px-6 bg-[url('https://i.pinimg.com/736x/68/a7/03/68a7032db26b1cc0f5cc04631e784f13.jpg')] bg-cover bg-center"
     
@@ -50,7 +54,9 @@ const Card = () => {
           Discover how millets can effectively manage diabetes, obesity, and
           improve heart health for a better lifestyle.
         </p>
-        <button className="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full shadow-md">
+        <button 
+         onClick={handleLearnMoreClick} // Add the onClick event here
+        className="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full shadow-md">
           Learn More
         </button>
       </div>
