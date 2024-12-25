@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Card from "./Components/Card";  // Import the Card component
 import ImageScan from "./Components/ImageScan";
-import Upload from "./Components/Upload";  // Import the ImageScan component
+import Upload from "./Components/Upload";
+import Search from "./Components/Search";  // Import the ImageScan component
 import LogMeal from "./Components/LogMeal";
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Card />} /> {/* Home page */}
         <Route path="/imagescan" element={<ImageScan />} />
+         {/* Image scan page */}
          <Route path="/upload" element={<Upload />} />
+         <Route path="/Search" element={<Search />}/>
          <Route path="/logmeal" element={<LogMeal/>}/>
       </Routes>
     </Router>
@@ -19,10 +22,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
