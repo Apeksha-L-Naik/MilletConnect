@@ -109,6 +109,60 @@ def predict():
             return jsonify({'error': 'Millet information not found.'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+
+
+@app.route('/search', methods=['GET'])
+def search_millet():
+    try:
+        # Get the millet name from query parameters
+        millet_name = request.args.get('name', '').strip()
+        if not millet_name:
+            return jsonify({'error': 'Millet name is required.'}), 400
+
+        # Normalize the millet name for comparison
+        normalized_name = ' '.join([word.capitalize() for word in millet_name.split()])
+        print(normalized_name)
+        # Query the database for millet details
+        cursor = mysql.connection.cursor()
+        query = """
+            SELECT M.id, M.millet_type, 
+                   M.description, M.health_benefits, 
+                   M.protein_g_per_100g, M.fats_g_per_100g, 
+                   M.dietary_fiber, M.minerals, M.carbohydrate_g_per_100g,
+                   MI.image
+            FROM Millets M
+            LEFT JOIN Millets_image MI ON M.id = MI.millet_id
+            WHERE M.millet_type = %s
+        """
+        cursor.execute(query, (normalized_name,))
+        result = cursor.fetchone()
+
+        if result:
+            millet_id, millet_type, description, health_benefits, protein, fats, fiber, minerals, carbs, image_data = result
+
+            # Convert image data to base64
+            if image_data:
+                image_base64 = base64.b64encode(image_data).decode('utf-8')
+            else:
+                image_base64 = None  # No image available for this millet
+
+            response = {
+                'millet_type': millet_type,
+                'description': description,
+                'health_benefits': health_benefits,
+                'Protein': protein,
+                'Fats': fats,
+                'Dietary_Fiber': fiber,
+                'Minerals': minerals,
+                'Carbohydrates': carbs,
+                'image': image_base64
+            }
+            return jsonify(response)
+        else:
+            return jsonify({'error': 'Millet information not found.'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

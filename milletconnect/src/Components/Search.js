@@ -1,13 +1,32 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Search = () => {
   const [query, setQuery] = useState("");
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
-  // Handle the search form submission
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    alert(`Searching for: ${query}`);
-    // Replace this with actual search logic (e.g., API call)
+    try {
+      setError(null);
+      setResult(null);
+
+      // Make an API call to search for millet information
+      const response = await axios.get("http://127.0.0.1:5000/search", {
+        params: { name: query },
+      });
+
+      setResult(response.data);
+    } catch (err) {
+      if (err.response) {
+        // API returned an error response
+        setError(err.response.data.error || "An error occurred.");
+      } else {
+        // Network or other error
+        setError("Failed to fetch millet details. Please try again.");
+      }
+    }
   };
 
   return (
@@ -30,7 +49,7 @@ const Search = () => {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="e.g., Millet varieties"
+              placeholder="e.g., Pearl Millet"
               className="border-2 border-[#a16207] p-3 rounded-lg w-full text-lg focus:outline-none focus:ring-2 focus:ring-[#a16207] transition-all"
             />
           </div>
@@ -43,14 +62,37 @@ const Search = () => {
           </button>
         </form>
 
-        <div className="mt-8 text-center text-sm text-gray-600">
-          <p className="italic">
-            Tip: Try searching for different millet types or their health benefits!
-          </p>
-        </div>
+        {error && (
+          <div className="mt-6 text-red-500 text-center">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {result && (
+          <div className="mt-6 text-center">
+            <h2 className="text-xl font-bold text-[#a16207]">
+              {result.millet_type}
+            </h2>
+            <img
+              src={`data:image/jpeg;base64,${result.image}`}
+              alt={result.millet_type}
+              className="w-full h-64 object-cover rounded-lg mt-4"
+            />
+            <p className="mt-4 text-gray-700"><strong>Description: </strong>{result.description}</p>
+            <p className="mt-4 text-gray-700"><strong>Health Benefits: </strong>{result.health_benefits}</p>
+            <ul className="mt-4 text-gray-700 text-left">
+              <li><strong>Protein: </strong> {result.Protein}</li>
+              <li><strong>Fats: </strong> {result.Fats}</li>
+              <li><strong>Dietary Fiber: </strong> {result.Dietary_Fiber}</li>
+              <li><strong>Minerals: </strong> {result.Minerals}</li>
+              <li><strong>Carbohydrates: </strong> {result.Carbohydrates}</li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default Search;
+
