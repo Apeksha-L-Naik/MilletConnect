@@ -1,10 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Card from "./Components/Card";  
+import Card from "./Components/Card";  // Import the Card component
 import ImageScan from "./Components/ImageScan";
 import Upload from "./Components/Upload";
-import Search from "./Components/Search"; 
+import Search from "./Components/Search";  // Import the ImageScan component
+import LogMeal from "./Components/LogMeal";
 import Disease from "./Components/Disease";
+import Info from "./Components/Info";
+import Disearch from "./Components/Disearch";
 
 function App() {
   return (
@@ -15,17 +18,13 @@ function App() {
          {/* Image scan page */}
          <Route path="/upload" element={<Upload />} />
          <Route path="/Search" element={<Search />}/>
-         <Route path="/disease" element={<Disease />}/>
+         <Route path="/logmeal" element={<LogMeal/>}/>
+         <Route path="/disease" element={<Disease/>}/>
+         <Route path="/info" element={<Info/>}/>
+         <Route path="/disearch" element={<Disearch/>}/>
       </Routes>
     </Router>
   );
 }
 
 export default App;
-
-
-
-
-
-
-

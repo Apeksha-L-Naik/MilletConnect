@@ -71,7 +71,7 @@ const handleDrop = (event) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6  bg-[url('https://i.pinimg.com/736x/4e/ef/4a/4eef4a44c8743163fb44673ac3b90f78.jpg')] bg-cover bg-center">
       <h1 className="font-playfair text-4xl font-bold text-[#a16207] mb-8 text-shadow-md animate-fade-in">
-        Upload Your Millet Image 🌾
+      🌾 Upload Your Millet Image 🌾
       </h1>
 
       <div className="flex flex-col items-center gap-6 p-8 bg-white rounded-xl shadow-2xl w-full max-w-xl">

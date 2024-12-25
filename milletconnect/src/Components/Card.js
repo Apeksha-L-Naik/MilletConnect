@@ -8,15 +8,17 @@ const Card = () => {
     navigate("/imagescan");  // Navigate to the /imagescan route
   };
   const handleLearnMoreClick = () => {
-    navigate("/disease"); // Navigate to the /disease route
+    navigate("/disease");  // Navigate to the /imagescan route
   };
-  
+  const handleClick = () => {
+    navigate("/logmeal");  
+  };
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-8 h-screen py-12 px-6 bg-[url('https://i.pinimg.com/736x/68/a7/03/68a7032db26b1cc0f5cc04631e784f13.jpg')] bg-cover bg-center"
     
     >
       {/* Card 1: Image Scan */}
-      <div className="bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 w-80 p-6 border-t-4 border-yellow-500  flex flex-col">
+      <div className="bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 w-80 p-6 border-t-4 border-yellow-500  flex flex-col ">
         <div className="bg-yellow-100 rounded-t-xl flex justify-center items-center p-4 ">
           <img
             src="https://interactive.co.id/product/images/assets/myorder-apps/1-qr.png"
@@ -55,7 +57,7 @@ const Card = () => {
           improve heart health for a better lifestyle.
         </p>
         <button 
-         onClick={handleLearnMoreClick} // Add the onClick event here
+        onClick={handleLearnMoreClick}
         className="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full shadow-md">
           Learn More
         </button>
@@ -77,7 +79,9 @@ const Card = () => {
           Keep track of your daily nutritional intake with our
           user-friendly and personalized tracker for optimal health.
         </p>
-        <button className="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-5 rounded-full shadow-md">
+        <button 
+        onClick={handleClick} 
+        className="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-5 rounded-full shadow-md">
           Track Now
         </button>
       </div>
