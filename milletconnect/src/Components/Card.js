@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter as  Router, Routes, Route ,useNavigate } from "react-router-dom";
 
 const Card = () => {
   const navigate = useNavigate();  // Get the navigate function from useNavigate
@@ -8,8 +8,8 @@ const Card = () => {
     navigate("/imagescan");  // Navigate to the /imagescan route
   };
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-8 h-screen py-12 px-6"
-    style={{ backgroundColor: "#fdf2ef" }}
+    <div className="flex flex-col md:flex-row justify-center items-center gap-8 h-screen py-12 px-6 bg-[url('https://i.pinimg.com/736x/68/a7/03/68a7032db26b1cc0f5cc04631e784f13.jpg')] bg-cover bg-center"
+    
     >
       {/* Card 1: Image Scan */}
       <div className="bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 w-80 p-6 border-t-4 border-yellow-500  flex flex-col">
@@ -20,7 +20,7 @@ const Card = () => {
             className="h-40"
           />
         </div>
-        <h2 className="font-playfair text-xl font-extrabold text-yellow-700 mt-6 text-center">Image Scanner</h2>
+        <h2 className="font-playfair text-2xl font-extrabold text-yellow-700 mt-6 text-center">Image Scanner</h2>
         <p className="text-gray-700 mt-3 leading-relaxed flex-grow">
           Scan the image of millets or search through text to explore
           information and details about their benefits.
@@ -43,7 +43,7 @@ const Card = () => {
             className="h-40"
           />
         </div>
-        <h2 className="font-playfair text-xl font-extrabold text-green-700 mt-6 text-center">
+        <h2 className="font-playfair text-2xl font-extrabold text-green-700 mt-6 text-center">
           Millets for Disease Cure
         </h2>
         <p className="text-gray-700 mt-3 leading-relaxed">
@@ -64,7 +64,7 @@ const Card = () => {
             className="h-40 object-contain"
           />
         </div>
-        <h2 className="font-playfair text-xl font-extrabold text-red-700 mt-6 text-center">
+        <h2 className="font-playfair text-2xl font-extrabold text-red-700 mt-6 text-center">
           Nutritional Tracker
         </h2>
         <p className="text-gray-700 mt-3 leading-relaxed flex-grow">

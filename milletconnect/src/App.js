@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Card from "./Components/Card";  // Import the Card component
 import ImageScan from "./Components/ImageScan";
-import Upload from "./Components/Upload";  // Import the ImageScan component
+import Upload from "./Components/Upload";
+import Search from "./Components/Search";  // Import the ImageScan component
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/imagescan" element={<ImageScan />} />
          {/* Image scan page */}
          <Route path="/upload" element={<Upload />} />
+         <Route path="/Search" element={<Search />}/>
       </Routes>
     </Router>
   );

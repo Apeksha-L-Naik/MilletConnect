@@ -5,12 +5,12 @@ const ImageScan = () => {
   const navigate = useNavigate();
 
   const handleUploadClick = () => {
-    navigate("/upload?mode=upload"); // Navigates to the /upload route with a query parameter
+    navigate("/upload"); // Navigate to the /upload route
   };
 
-  // Navigate to the Upload page for Search functionality
+  // Navigate to the Search page
   const handleSearchClick = () => {
-    navigate("/upload?mode=search"); // Navigates to the /upload route with a query parameter
+    navigate("/search"); // Navigate to the /search route
   };
 
   return (
