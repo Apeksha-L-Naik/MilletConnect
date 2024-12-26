@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Components/Home";
+import AuthForm from "./Components/AuthForm";
 import Card from "./Components/Card";  // Import the Card component
 import ImageScan from "./Components/ImageScan";
 import Upload from "./Components/Upload";
@@ -13,7 +15,9 @@ function App() {
   return (
     <Router> {/* Wrap your routes in the Router */}
       <Routes>
-        <Route path="/" element={<Card />} /> {/* Home page */}
+      <Route path="/" element={<AuthForm />} />
+      <Route path="/home" element={<Home />} /> 
+        <Route path="/Card" element={<Card />} /> {/* Home page */}
         <Route path="/imagescan" element={<ImageScan />} />
          {/* Image scan page */}
          <Route path="/upload" element={<Upload />} />
@@ -27,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;
