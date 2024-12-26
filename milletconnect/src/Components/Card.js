@@ -7,6 +7,9 @@ const Card = () => {
   const handleGetStartedClick = () => {
     navigate("/imagescan");  // Navigate to the /imagescan route
   };
+  const handleLearnMoreClick = () => {
+    navigate("/disease");  // Navigate to the /imagescan route
+  };
   const handleClick = () => {
     navigate("/logmeal");  
   };
@@ -15,7 +18,7 @@ const Card = () => {
     
     >
       {/* Card 1: Image Scan */}
-      <div className="bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 w-80 p-6 border-t-4 border-yellow-500  flex flex-col">
+      <div className="bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 w-80 p-6 border-t-4 border-yellow-500  flex flex-col ">
         <div className="bg-yellow-100 rounded-t-xl flex justify-center items-center p-4 ">
           <img
             src="https://interactive.co.id/product/images/assets/myorder-apps/1-qr.png"
@@ -53,7 +56,9 @@ const Card = () => {
           Discover how millets can effectively manage diabetes, obesity, and
           improve heart health for a better lifestyle.
         </p>
-        <button className="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full shadow-md">
+        <button 
+        onClick={handleLearnMoreClick}
+        className="mt-6 bg-green-500 hover:bg-green-600 text-white py-2 px-5 rounded-full shadow-md">
           Learn More
         </button>
       </div>

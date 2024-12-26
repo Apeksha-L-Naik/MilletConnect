@@ -163,6 +163,54 @@ def search_millet():
             return jsonify({'error': 'Millet information not found.'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/disease', methods=['GET'])
+def get_millets_for_disease():
+    try:
+        # Get the disease name from query parameters
+        disease_name = request.args.get('disease', '').strip().lower()
+        if not disease_name:
+            return jsonify({'error': 'Disease name is required.'}), 400
+
+        # Mapping diseases to their relevant millets
+        disease_to_millet = {
+            "diabetes": ["Foxtail Millet", "Finger Millet (Ragi)", "Little Millet"],
+            "heart disease": ["Pearl Millet (Bajra)", "Sorghum (Jowar)", "Foxtail Millet"],
+            "obesity": ["Kodo Millet", "Barnyard Millet", "Little Millet"],
+            "anemia": ["Finger Millet (Ragi)", "Little Millet"],
+            "high cholesterol": ["Barnyard Millet", "Kodo Millet"],
+            "hypertension": ["Barnyard Millet", "Foxtail Millet"],
+            "constipation": ["Finger Millet (Ragi)", "Sorghum (Jowar)", "Little Millet"],
+            "celiac disease": ["Sorghum (Jowar)", "Pearl Millet (Bajra)", "Finger Millet (Ragi)", "Foxtail Millet"],
+            "calcium deficiency": ["Finger Millet (Ragi)", "Pearl Millet (Bajra)"],
+            "irritable bowel syndrome": ["Foxtail Millet", "Barnyard Millet"],
+            "thyroid disorders": ["Finger Millet (Ragi)", "Little Millet"],
+            "bone health": ["Finger Millet (Ragi)", "Pearl Millet (Bajra)"],
+            "skin disorders": ["Kodo Millet", "Barnyard Millet"],
+            "gut health": ["Sorghum (Jowar)", "Kodo Millet"],
+            "pcos/pcod": ["Foxtail Millet", "Little Millet", "Finger Millet (Ragi)"],
+            "liver disorders": ["Foxtail Millet", "Kodo Millet", "Little Millet"],
+            "kidney health": ["Sorghum (Jowar)", "Kodo Millet"],
+            "fatty liver": ["Foxtail Millet", "Barnyard Millet"],
+            "energy boosting": ["Sorghum (Jowar)", "Pearl Millet (Bajra)"],
+            "detoxification": ["Little Millet", "Kodo Millet"],
+            "osteoporosis": ["Finger Millet (Ragi)", "Pearl Millet (Bajra)"],
+            "weight gain (undernourished)": ["Pearl Millet (Bajra)", "Finger Millet (Ragi)"],
+            "cancer prevention": ["Kodo Millet", "Barnyard Millet"],
+            "eye health": ["Little Millet", "Finger Millet (Ragi)"],
+            "neurological health": ["Foxtail Millet", "Pearl Millet (Bajra)"],
+            "improved immunity": ["Finger Millet (Ragi)", "Sorghum (Jowar)", "Foxtail Millet"],
+            "fatigue/weakness": ["Finger Millet (Ragi)", "Pearl Millet (Bajra)"]
+        }
+
+        # Get millets for the given disease (normalize input)
+        millets = disease_to_millet.get(disease_name)
+        if not millets:
+            return jsonify({'error': 'No millets found for the given disease.'}), 404
+
+        return jsonify({'disease': disease_name, 'millets': millets}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

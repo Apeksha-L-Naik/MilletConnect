@@ -1,27 +1,34 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Components/Home"; // Home component
-import Card from "./Components/Card"; // Card component
-import ImageScan from "./Components/ImageScan"; // ImageScan component
-import Upload from "./Components/Upload"; // Upload component
-import Search from "./Components/Search"; // Search component
-import LogMeal from "./Components/LogMeal"; // LogMeal component
-import AuthForm from "./Components/AuthForm"; // AuthForm component
+import Home from "./Components/Home";
+import AuthForm from "./Components/AuthForm";
+import Card from "./Components/Card";  // Import the Card component
+import ImageScan from "./Components/ImageScan";
+import Upload from "./Components/Upload";
+import Search from "./Components/Search";  // Import the ImageScan component
+import LogMeal from "./Components/LogMeal";
+import Disease from "./Components/Disease";
+import Info from "./Components/Info";
+import Disearch from "./Components/Disearch";
 
 function App() {
   return (
     <Router> {/* Wrap your routes in the Router */}
       <Routes>
-        <Route path="/" element={<AuthForm />} /> {/* Show AuthForm initially */}
-        <Route path="/home" element={<Home />} /> {/* Redirect to Home after login/signup */}
-        <Route path="/card" element={<Card />} /> {/* Card page */}
-        <Route path="/imagescan" element={<ImageScan />} /> {/* Image scan page */}
-        <Route path="/upload" element={<Upload />} /> {/* Upload page */}
-        <Route path="/search" element={<Search />} /> {/* Search page */}
-        <Route path="/logmeal" element={<LogMeal />} /> {/* LogMeal page */}
+      <Route path="/" element={<AuthForm />} />
+      <Route path="/home" element={<Home />} /> 
+        <Route path="/Card" element={<Card />} /> {/* Home page */}
+        <Route path="/imagescan" element={<ImageScan />} />
+         {/* Image scan page */}
+         <Route path="/upload" element={<Upload />} />
+         <Route path="/Search" element={<Search />}/>
+         <Route path="/logmeal" element={<LogMeal/>}/>
+         <Route path="/disease" element={<Disease/>}/>
+         <Route path="/info" element={<Info/>}/>
+         <Route path="/disearch" element={<Disearch/>}/>
       </Routes>
     </Router>
   );
 }
 
-export default App;
+export default App;
