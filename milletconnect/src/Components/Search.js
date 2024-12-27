@@ -31,11 +31,11 @@ const Search = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[url('https://i.pinimg.com/736x/c5/bb/8c/c5bb8c74c051f20e76ec26e18bee8056.jpg')] bg-cover bg-center">
-      <h1 className="font-playfair text-5xl font-bold text-[#a16207] mb-10 text-shadow-lg animate-fade-in relative top-[-60px]">
+      <h1 className="font-playfair text-5xl font-bold text-[#a16207]  mb-10 text-shadow-lg animate-fade-in ">
         🌾 Search Millet Information 🌾
       </h1>
 
-      <div className="w-full max-w-lg p-8 bg-white rounded-2xl shadow-xl backdrop-blur-lg bg-opacity-60">
+      <div className="w-full max-w-lg p-8 bg-white  rounded-2xl shadow-xl backdrop-blur-lg bg-opacity-60">
         <form onSubmit={handleSearchSubmit} className="flex flex-col items-center">
           <div className="mb-6 w-full">
             <label
