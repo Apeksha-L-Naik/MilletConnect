@@ -133,14 +133,14 @@ app.post('/calorie-limit', (req, res) => {
   let dailyCalorieLimit;
 
   if (gender === 'female') {
-    if (age < 10) dailyCalorieLimit = 500;
-    else if (age <= 18) dailyCalorieLimit = 1800;
-    else if (age <= 30) dailyCalorieLimit = 2000;
+    if (age < 10) dailyCalorieLimit = 1400;
+    else if (age <= 18) dailyCalorieLimit = 2200;
+    else if (age <= 30) dailyCalorieLimit = 2400;
     else dailyCalorieLimit = 1800;
   } else if (gender === 'male') {
-    if (age < 10) dailyCalorieLimit = 700;
-    else if (age <= 18) dailyCalorieLimit = 2500;
-    else if (age <= 30) dailyCalorieLimit = 2700;
+    if (age < 10) dailyCalorieLimit = 1800;
+    else if (age <= 18) dailyCalorieLimit = 2400;
+    else if (age <= 30) dailyCalorieLimit = 3000;
     else dailyCalorieLimit = 2500;
   } else {
     return res.status(400).json({ error: 'Invalid gender' });
