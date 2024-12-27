@@ -152,18 +152,15 @@ app.post('/calorie-limit', (req, res) => {
 // API to save meal data (requires user to be logged in)
 app.post('/meals', (req, res) => {
   const { meal, calories, protein, carbs, fats } = req.body;
-  const userId = req.session.userId;
 
-  if (!userId) {
-    return res.status(401).json({ error: 'User not logged in' });
-  }
-
+  // Validate the input
   if (!meal || calories === undefined || protein === undefined || carbs === undefined || fats === undefined) {
     return res.status(400).json({ error: 'All meal data is required' });
   }
 
-  const query = 'INSERT INTO meals (meal, calories, protein, carbs, fats, userId) VALUES (?, ?, ?, ?, ?, ?)';
-  db.query(query, [meal, calories, protein, carbs, fats, userId], (err, result) => {
+  // Adjust the query to exclude userId
+  const query = 'INSERT INTO meals (meal, calories, protein, carbs, fats) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [meal, calories, protein, carbs, fats], (err, result) => {
     if (err) {
       console.error('Database query error:', err);
       return res.status(500).json({ error: 'An error occurred while saving meal data' });
@@ -172,17 +169,42 @@ app.post('/meals', (req, res) => {
   });
 });
 
-// API to fetch daily meal report (requires user to be logged in)
+// API to fetch daily meal report
+// API to fetch meal report by meal ID
 app.get('/report/:mealId', (req, res) => {
   const { mealId } = req.params;
-  const userId = req.session.userId;
+  const { age, gender } = req.query; // Fetch age and gender from query parameters
 
-  if (!userId) {
-    return res.status(401).json({ error: 'User not logged in' });
+  // Check if all required parameters are provided
+  if (!mealId || !age || !gender) {
+    return res.status(400).json({ error: 'Meal ID, age, and gender are required' });
   }
 
-  const query = `SELECT meal, calories, protein, carbs, fats, created_at FROM meals WHERE id = ? AND userId = ?`;
-  db.query(query, [mealId, userId], (err, results) => {
+  // First, get the daily calorie limit based on age and gender
+  let dailyCalorieLimit;
+
+  if (gender === 'female') {
+    if (age < 10) dailyCalorieLimit = 500;
+    else if (age <= 18) dailyCalorieLimit = 1800;
+    else if (age <= 30) dailyCalorieLimit = 2000;
+    else dailyCalorieLimit = 1800;
+  } else if (gender === 'male') {
+    if (age < 10) dailyCalorieLimit = 700;
+    else if (age <= 18) dailyCalorieLimit = 2500;
+    else if (age <= 30) dailyCalorieLimit = 2700;
+    else dailyCalorieLimit = 2500;
+  } else {
+    return res.status(400).json({ error: 'Invalid gender' });
+  }
+
+  // Now fetch the meal data
+  const query = `
+    SELECT meal, calories, protein, carbs, fats, created_at
+    FROM meals
+    WHERE id = ?;
+  `;
+
+  db.query(query, [mealId], (err, results) => {
     if (err) {
       console.error('Database query error:', err);
       return res.status(500).json({ error: 'An error occurred while fetching the report' });
@@ -193,6 +215,22 @@ app.get('/report/:mealId', (req, res) => {
     }
 
     const mealData = results[0];
+
+    // Compare meal calories with the daily calorie limit
+    let message;
+    let suggestion;
+
+    if (mealData.calories > dailyCalorieLimit) {
+      message = `This meal exceeds the daily calorie limit.`;
+      suggestion = 'Consider reducing portion sizes or opting for lower-calorie ingredients.';
+    } else if (mealData.calories < dailyCalorieLimit) {
+      message = `This meal is within the daily calorie limit, but you can add more protein or fiber for a more balanced meal.`;
+      suggestion = 'Try adding more protein-rich ingredients or vegetables for a balanced meal.';
+    } else {
+      message = `This meal meets the daily calorie limit.`;
+      suggestion = 'Great choice for a balanced meal!';
+    }
+
     res.json({
       meal: mealData.meal,
       calories: mealData.calories,
@@ -200,10 +238,11 @@ app.get('/report/:mealId', (req, res) => {
       carbs: mealData.carbs,
       fats: mealData.fats,
       createdAt: mealData.created_at,
+      message,
+      suggestion,
     });
   });
 });
-
 // Start the server
 const PORT = 4000;
 app.listen(PORT, () => {
