@@ -60,7 +60,7 @@ function AuthForm() {
       className="min-h-screen flex justify-center items-center bg-cover bg-center"
       style={{
         backgroundImage:
-          'url(https://i.pinimg.com/1200x/a9/a7/67/a9a76781fda00540bc484f56db320b80.jpg)',
+          'url(https://t4.ftcdn.net/jpg/09/70/04/03/360_F_970040395_pinFxZ0OsxxWfZHZyYgfp7M3mBOJd2u3.jpg)',
       }}
     >
       <div className="bg-white bg-opacity-95 p-10 rounded-xl shadow-2xl w-96">
