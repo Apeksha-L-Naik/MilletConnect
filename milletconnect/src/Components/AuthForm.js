@@ -60,7 +60,7 @@ function AuthForm() {
       className="min-h-screen flex justify-center items-center bg-cover bg-center"
       style={{
         backgroundImage:
-          'url(https://media.istockphoto.com/id/1419992346/vector/autumn-abstract-background-with-hand-drawn-ears-of-wheat.jpg?s=612x612&w=0&k=20&c=w94usonhzo5-btl1KaDnApG4Gb9BLuqg932o1tcJ6oA=)',
+          'url(https://t4.ftcdn.net/jpg/09/70/04/03/360_F_970040395_pinFxZ0OsxxWfZHZyYgfp7M3mBOJd2u3.jpg)',
       }}
     >
       <div className="bg-white bg-opacity-95 p-10 rounded-xl shadow-2xl w-96">
