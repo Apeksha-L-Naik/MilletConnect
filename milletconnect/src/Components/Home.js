@@ -9,7 +9,7 @@ const Home = () => {
         className="absolute top-0 left-0 w-full h-full bg-center bg-contain animate-image-fade"
         style={{
           backgroundImage:
-            "url('https://www.isaaa.org/kc/cropbiotechupdate/files/images/1127202453907AM.jpg')",
+            "url('https://www.isaaa.org/kc/cropbiotechupdate/files/images/1127202453907AM.jpg ')",
           backgroundSize: "cover", // This will prevent the image from being too zoomed
         }}
       ></div>
@@ -35,3 +35,7 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
